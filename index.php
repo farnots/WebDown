@@ -85,8 +85,6 @@ if (!isset($actual_path))
         <?php
         if ($path_parts['extension'] == 'md') {
           $text = file_get_contents($actual_path);
-          
-
 
           $parser = new \cebe\markdown\GithubMarkdown();
           $myHtmlContent = $parser->parse($text);
@@ -96,27 +94,30 @@ if (!isset($actual_path))
 
           $htmlOut  = $markupFixer->fix($myHtmlContent);         
 
-
-
           $buffer='';
           $nbrline=0;
+          $ok = false;
           for ($i=0; $i < 1000 ; $i++) { 
             $line = readStrLine($htmlOut, $i);
             if ($line == '<p>[TOC]</p>') {
               $toc = "<div class='toc'><ul>" . $tocGenerator->getHtmlMenu($htmlOut) . "</ul></div>";
               echo $buffer;
               echo $toc;
+              $ok = true;
               break;
             } else {
               $buffer = $buffer.$line;
               $nbrline++;
             }
           }
-
-
-          $htmlOut = str_chop_lines($htmlOut,$nbrline);
+          if ($ok == false) {
+            echo $htmlOut;
+          } 
+          else {
+            $htmlOut = str_chop_lines($htmlOut,$nbrline);
+            echo $htmlOut;
+          }          
           
-          echo $htmlOut;
 
         }
 
