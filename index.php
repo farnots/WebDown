@@ -1,11 +1,10 @@
 <!doctype html>
 
 <?php 
+require_once 'vendor/autoload.php';
+
 include("./function.php");
 include("./phpFileTree/php_file_tree.php");
-use \Michelf\Markdown;
-use \Michelf\MarkdownExtra;
-
 
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
@@ -78,27 +77,60 @@ if (!isset($actual_path))
       ?>
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb">
-          
+
           <?php ariane($actual_path); ?>
         </ol>
       </nav>
-      <?php
-      if ($path_parts['extension'] == 'md') {
-        $text = file_get_contents($actual_path);
-        $html = MarkdownExtra::defaultTransform($text);
-        echo $html; 
-      }
+      <article>
+        <?php
+        if ($path_parts['extension'] == 'md') {
+          $text = file_get_contents($actual_path);
+          
 
-      else {
-        ?>
-        <h1><?php  echo basename($actual_path ); ?></h1>
-        <ul>
-          <?php
-          localFolder($actual_path); 
-        } 
-        ?>
-      </ul>
-      <?php } ?>   
+
+          $parser = new \cebe\markdown\GithubMarkdown();
+          $myHtmlContent = $parser->parse($text);
+
+          $markupFixer  = new TOC\MarkupFixer();
+          $tocGenerator = new TOC\TocGenerator();
+
+          $htmlOut  = $markupFixer->fix($myHtmlContent);         
+
+
+
+          $buffer='';
+          $nbrline=0;
+          for ($i=0; $i < 1000 ; $i++) { 
+            $line = readStrLine($htmlOut, $i);
+            if ($line == '<p>[TOC]</p>') {
+              $toc = "<div class='toc'><ul>" . $tocGenerator->getHtmlMenu($htmlOut) . "</ul></div>";
+              echo $buffer;
+              echo $toc;
+              break;
+            } else {
+              $buffer = $buffer.$line;
+              $nbrline++;
+            }
+          }
+
+
+          $htmlOut = str_chop_lines($htmlOut,$nbrline);
+          
+          echo $htmlOut;
+
+        }
+
+        else {
+          ?>
+          <h1><?php  echo basename($actual_path ); ?></h1>
+          <ul>
+            <?php
+            localFolder($actual_path); 
+          } 
+          ?>
+        </ul>
+        <?php } ?> 
+      </article>  
     </div>
 
 

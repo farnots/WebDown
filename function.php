@@ -5,6 +5,15 @@ spl_autoload_register(function($class){
 });
 
 
+function readStrLine($str, $n) {
+  $lines = explode(PHP_EOL, $str);
+  return $lines[$n-1];
+}
+
+function str_chop_lines($str, $lines = 4) {
+  return implode("\n", array_slice(explode("\n", $str), $lines));
+}
+
 function ariane($actual_path)
 {
   $str = substr($actual_path,2,strlen($actual_path)-2);
@@ -26,7 +35,7 @@ function ariane($actual_path)
       <?php
       $i++;
     }
-    
+
   }
   ?>
   <li class="breadcrumb-item active" aria-current="page"><?php printf($chunks[sizeof($chunks)-1]); ?></li><?php

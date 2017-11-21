@@ -1,0 +1,6 @@
+{
+    "require": {
+        "cebe/markdown": "~1.1.1",
+        "caseyamcl/toc": "~1.0"
+    }
+}
