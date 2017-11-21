@@ -1,80 +1,23 @@
 <!doctype html>
 
 <?php 
-spl_autoload_register(function($class){
-  require preg_replace('{\\\\|_(?!.*\\\\)}', DIRECTORY_SEPARATOR, ltrim($class, '\\')).'.php';
-});
-
+include("./function.php");
 include("./phpFileTree/php_file_tree.php");
 use \Michelf\Markdown;
 use \Michelf\MarkdownExtra;
 
 
-function localFolder($dir)
-{
-  $dh = scandir($dir);
-  $return = array();
-
-  foreach ($dh as $folder) {
-    if ($folder != '.' && $folder != '..' && $folder != '.DS_Store') {
-      $path_parts = pathinfo($folder);
-      ?>      
-      <li class="nav-item">
-        <a class="nav-link" href="index.php?dir=<?php printf(''.$dir.'/'.$folder); ?>">
-          <?php printf($path_parts['filename']); ?>
-        </a>
-      </li>
-      <?php
-    }
-  }
-}
-
-function onlyLocalFolder($dir)
-{
-  $dh = scandir($dir);
-  foreach ($dh as $folder) {
-    $path_parts = pathinfo($folder);
-
-    if ($path_parts['extension'] == 'md') {
-      break;
-    } 
-    else{
-      if ($folder != '.' && $folder != '..' && $folder != '.DS_Store') {
-        ?>      
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="index.php?dir=<?php printf(''.$dir.'/'.$folder); ?>" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php printf($folder); ?></a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <?php 
-            $new_folder = $dir.'/'.$folder;
-            $dh = scandir($new_folder);
-            ?>
-
-            <a class="dropdown-item" href="index.php?dir=<?php printf(''.$dir.'/'.$folder); ?>"><?php printf('<strong>'.$folder.'</strong>'); ?></a>
-
-            <?php
-            foreach ($dh as $folder2){
-              $path_parts = pathinfo($folder2);
-              if ($path_parts['extension'] == 'md') {
-                break;
-              } 
-              else {
-                if ($folder2 != '.' && $folder2 != '..' && $folder2 != '.DS_Store'){
-                  ?><a class="dropdown-item" href="index.php?dir=<?php printf(''.$new_folder.'/'.$folder2); ?>"><?php printf($folder2); ?></a><?php
-                }
-              }
-            }
-
-            ?>
-          </div>
-        </li>
-        <?php
-      }
-    }
-  }
-}
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 
 $dir = "./Notes";
+$type = $_GET['type'];
+if (!isset($type)) 
+{
+  $type = 'none';
+}
 $actual_path = $_GET['dir'];
 if (!isset($actual_path)) 
 {
@@ -107,51 +50,47 @@ if (!isset($actual_path))
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="./index.php">Worksite</a>
-    </button>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <?php 
-        onlyLocalFolder($dir);
-        ?>
-      </div>
-    </nav>
-    <div id="wrapper">
-    <div id="sidebar-wrapper">
-          <?php 
-         $allowed = array("gif", "jpg", "jpeg", "png","md","markdown");
-         echo php_file_tree("./Notes", "./index.php?dir=[link]",$allowed);
-         ?>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <?php 
+      onlyLocalFolder($dir);
+      ?>
+      <li class="nav-item">
+        <a class="nav-link" href="index.php?type=tree">
+          Tree folder
+        </a>
+      </li>
     </div>
-    <div id="page-content-wrapper">
-            <div class="page-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <?php 
+  </nav>
+    <div class="container">
+    <?php 
 
-        $path_parts = pathinfo($actual_path);
-        if ($path_parts['extension'] == 'md') {
-          $text = file_get_contents($actual_path);
-          $html = MarkdownExtra::defaultTransform($text);
-          echo $html; 
-        }
+    if ($type == 'tree') {
+      ?>
+      <h1>Tree folder</h1>
+      <?php
+      $allowed = array("gif", "jpg", "jpeg", "png","md","markdown");
+      echo php_file_tree("./Notes", "./index.php?dir=[link]",$allowed);
+    } else {
+      $path_parts = pathinfo($actual_path);
+      if ($path_parts['extension'] == 'md') {
+        $text = file_get_contents($actual_path);
+        $html = MarkdownExtra::defaultTransform($text);
+        echo $html; 
+      }
 
-
-        else {
-          ?>
-          <h1><?php  echo basename($actual_path ); ?></h1>
-          <ul>
+      else {
+        ?>
+        <h1><?php  echo basename($actual_path ); ?></h1>
+        <ul>
           <?php
           localFolder($actual_path); 
         } 
         ?>
-      </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
+         </ul>
+      <?php } ?>   
+</div>
 
 
     <!-- Bootstrap core JavaScript
