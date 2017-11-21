@@ -126,11 +126,75 @@ if (!isset($actual_path))
           <h1><?php  echo basename($actual_path ); ?></h1>
           <ul>
             <?php
-            localFolder($actual_path); 
-          } 
-          ?>
-        </ul>
-        <?php } ?> 
+            $info = false;
+            if ($actual_path == './Notes') {
+              localFolder($actual_path);
+              $info =true; 
+            } else {
+             localFolder($actual_path); 
+           }
+
+         } 
+         ?>
+       </ul>
+       <?php } 
+       if ($info == true) {
+        ?>
+        <div class="row">
+          <div class="col">
+            <h2>Last modified :</h2>
+            <?php
+
+            $stack = array();
+            last_modified("./Notes",$stack); 
+
+            usort($stack, "date_compare");
+
+            ?> 
+            <div class="list-group">
+              <?php
+              foreach ($stack as $key) {
+                ?>
+                <a href="index.php?dir=<?php printf($key['dir']); ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><?php echo $key['title']; ?></h5>
+                    <small><span class="badge badge-primary badge-pill"><?php echo $key['group']; ?></span></small>
+                  </div>
+                  <small><?php echo date ("d/m/Y  H:i",$key['date']); ?></small>
+                  <?php
+                  echo "</a>";
+                }
+                ?>
+              </div>
+
+            </div>
+            <div class="col">
+              <h2>By name :</h2>
+              <?php 
+              usort($stack,"name_compare");
+
+              ?> 
+            <div class="list-group">
+              <?php
+              foreach ($stack as $key) {
+                ?>
+                <a href="index.php?dir=<?php printf($key['dir']); ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><?php echo $key['title']; ?></h5>
+                    <small><span class="badge badge-primary badge-pill"><?php echo $key['group']; ?></span></small>
+                  </div>
+                  <small><?php echo date ("d/m/Y  H:i",$key['date']); ?></small>
+                  <?php
+                  echo "</a>";
+                }
+                ?>
+              </div>
+                            </div>
+            </div> 
+          </div>
+          <?php
+        } 
+        ?> 
       </article>  
     </div>
 
