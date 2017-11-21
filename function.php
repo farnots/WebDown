@@ -5,6 +5,33 @@ spl_autoload_register(function($class){
 });
 
 
+function ariane($actual_path)
+{
+  $str = substr($actual_path,2,strlen($actual_path)-2);
+  $chunks = explode('/', $str);
+  $i=0;
+  $direction ='.';
+  foreach ($chunks as $element) {
+    if ($i == sizeof($chunks)-1) {
+      break;
+    } 
+    else {
+      $direction = $direction.'/'.$element;
+      ?>
+      <li class="breadcrumb-item">
+        <a href="index.php?dir=<?php printf($direction) ?>">
+          <?php printf($element); ?>
+        </a>
+      </li>
+      <?php
+      $i++;
+    }
+    
+  }
+  ?>
+  <li class="breadcrumb-item active" aria-current="page"><?php printf($chunks[sizeof($chunks)-1]); ?></li><?php
+}
+
 function localFolder($dir)
 {
   $dh = scandir($dir);

@@ -63,7 +63,8 @@ if (!isset($actual_path))
       </li>
     </div>
   </nav>
-    <div class="container">
+  <div class="container">
+
     <?php 
 
     if ($type == 'tree') {
@@ -74,6 +75,14 @@ if (!isset($actual_path))
       echo php_file_tree("./Notes", "./index.php?dir=[link]",$allowed);
     } else {
       $path_parts = pathinfo($actual_path);
+      ?>
+      <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+          
+          <?php ariane($actual_path); ?>
+        </ol>
+      </nav>
+      <?php
       if ($path_parts['extension'] == 'md') {
         $text = file_get_contents($actual_path);
         $html = MarkdownExtra::defaultTransform($text);
@@ -88,9 +97,9 @@ if (!isset($actual_path))
           localFolder($actual_path); 
         } 
         ?>
-         </ul>
+      </ul>
       <?php } ?>   
-</div>
+    </div>
 
 
     <!-- Bootstrap core JavaScript
