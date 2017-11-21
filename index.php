@@ -34,7 +34,7 @@ if (!isset($actual_path))
   <meta name="author" content="Lucas Tarasconi">
   <link rel="icon" href="#">
 
-  <title>Worksite - <?php echo $actual_path; ?></title>
+  <title>WebDown - <?php echo get_group($actual_path); ?></title>
 
   <!-- Bootstrap core CSS -->
   <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -48,9 +48,11 @@ if (!isset($actual_path))
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="./index.php">Worksite</a>
+    <a class="navbar-brand" href="./index.php">WebDown</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse">
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <?php 
       onlyLocalFolder($dir);
