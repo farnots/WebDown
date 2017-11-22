@@ -26,11 +26,11 @@ Markdown is the best way to write stuff, from a simple draft to a more complexe 
 
 ### Screenshots
 
-![Sceenshot 1](../../../screenshots/screenshot_1.png)
-![Sceenshot 2](../../screenshots/screenshot_2.png)
-![Sceenshot 3](../../screenshots/screenshot_3.png)
-![Sceenshot 4](../../screenshots/screenshot_4.png)
-![Sceenshot 5](../../screenshots/screenshot_5.png)
+![Sceenshot 1](./screenshots/screenshot_1.png)
+![Sceenshot 2](./screenshots/screenshot_2.png)
+![Sceenshot 3](./screenshots/screenshot_3.png)
+![Sceenshot 4](./screenshots/screenshot_4.png)
+![Sceenshot 5](./screenshots/screenshot_5.png)
 
 
 ## Installation

@@ -2,7 +2,21 @@
 
 **WebDown** is the easiest way to put a basic *markdown* folder on the web without complexity. It's a simple php-application based on folder and not on any database.
 
-[TOC]
+- WebDown
+  - What is WebDown ?
+    - Why another "markdown on the web" ?
+    - Features
+    - Screenshots
+  - Installation
+    - Requierements
+    - Installation
+      - Get the project
+      - Add your folder
+    - Configuration
+      - Change the folder name
+      - Change the code highlight theme
+  - Roadmap
+  - Acknowledgment
 
 ## What is WebDown ?
 
