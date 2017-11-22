@@ -31,10 +31,13 @@ function view_mode($dir,$view_mode)
   if ($view_mode == 'list') {
     ?>
   <li class="nav-item" style="margin-top: 13px;">
-    <a class="nav-link active" href="index.php?dir=<?php echo $dir;?>&view=cards">cards view</a>
+    <a class="nav-link" href="index.php?dir=<?php echo $dir;?>&view=cards">cards view</a>
   </li>
   <li class="nav-item" style="margin-top: 13px;">
     <a class="nav-link disabled" href="#">list view</a>
+  </li>
+    <li class="nav-item" style="margin-top: 13px;">
+    <a class="nav-link" href="index.php?dir=<?php echo $dir;?>&view=tree">tree view</a>
   </li>
   <?php
   } 
@@ -44,8 +47,27 @@ function view_mode($dir,$view_mode)
     <a class="nav-link disabled" href="#">cards view</a>
   </li>
   <li class="nav-item" style="margin-top: 13px;">
-    <a class="nav-link active" href="index.php?dir=<?php echo $dir;?>&view=list">list view</a>
+    <a class="nav-link" href="index.php?dir=<?php echo $dir;?>&view=list">list view</a>
   </li>
+  </li>
+    <li class="nav-item" style="margin-top: 13px;">
+    <a class="nav-link" href="index.php?dir=<?php echo $dir;?>&view=tree">tree view</a>
+  </li>
+    <?php
+  }
+  elseif($view_mode == 'tree') {
+    ?>
+     <li class="nav-item" style="margin-top: 13px;">
+    <a class="nav-link " href="index.php?dir=<?php echo $dir;?>&view=cards">cards view</a>
+  </li>
+  <li class="nav-item" style="margin-top: 13px;">
+    <a class="nav-link" href="index.php?dir=<?php echo $dir;?>&view=list">list view</a>
+  </li>
+  </li>
+    <li class="nav-item" style="margin-top: 13px;">
+    <a class="nav-link disabled" href="#">tree view</a>
+  </li>
+
     <?php
   }
   

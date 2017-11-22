@@ -10,11 +10,6 @@ include("./phpFileTree/php_file_tree.php");
 
 $dir = "./Notes";
 
-$type = $_GET['type'];
-if (!isset($type)) 
-{
-  $type = 'none';
-}
 $actual_path = $_GET['dir'];
 if (!isset($actual_path)) 
 {
@@ -66,34 +61,17 @@ $view_mode = $_SESSION["view"];
         <?php 
         onlyLocalFolder($dir);
         ?>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?type=tree">
-            Tree folder
-          </a>
-        </li>
       </div>
     </nav>
     <div class="container">
-
-      <?php 
-
-      if ($type == 'tree') {
-        ?>
-        <h1>Tree folder</h1>
-        <?php
-        $allowed = array("gif", "jpg", "jpeg", "png","md","markdown");
-        echo php_file_tree("./Notes", "./index.php?dir=[link]",$allowed);
-      } else {
-        $path_parts = pathinfo($actual_path);
-        ?>
         <nav aria-label="breadcrumb" role="navigation">
           <ol class="breadcrumb">
-
             <?php ariane($actual_path); ?>
           </ol>
         </nav>
         <article>
           <?php
+          $path_parts = pathinfo($actual_path);
           if ($path_parts['extension'] == 'md') {
             print_markdown($actual_path);
           } else {
@@ -103,7 +81,7 @@ $view_mode = $_SESSION["view"];
               echo basename($actual_path ); 
             ?></h1>
             <?php 
-            view_mode($actual_path,$view_mode);
+              view_mode($actual_path,$view_mode);
             ?></ul><?php
             if($view_mode == 'cards'){
             ?>
@@ -114,7 +92,14 @@ $view_mode = $_SESSION["view"];
             <ul>
               <?php localFolder($actual_path); ?>
             </ul>
-            <?php } ?>
+            <?php } 
+            elseif ($view_mode == 'tree') {
+              $allowed = array("gif", "jpg", "jpeg", "png","md","markdown");
+              echo php_file_tree($actual_path, "./index.php?dir=[link]",$allowed);
+
+            }
+
+            ?>
             <div class="row">
               <div class="col">
                 <h2>Last modified :</h2>
@@ -129,7 +114,6 @@ $view_mode = $_SESSION["view"];
         </div>
         <?php
               }
-    } 
     ?> 
   </article>  
   <br />
