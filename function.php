@@ -91,6 +91,8 @@ function list_ordered($actual_path,$type)
   <div class="list-group">
     <?php
     foreach ($stack as $key) {
+      if ($key['type'] != 'dir') {
+
       ?>
       <a href="index.php?dir=<?php printf($key['dir']); ?>" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -101,6 +103,7 @@ function list_ordered($actual_path,$type)
         <?php
         echo "</a>";
       }
+       }
       ?>
     </div>
     <?php

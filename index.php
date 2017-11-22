@@ -43,12 +43,12 @@ $view_mode = $_SESSION["view"];
   <link href="./css/perso.css" rel="stylesheet">
 
   <link href="./css/bootstrap.min.css" rel="stylesheet">
-  <link href="./prism.css" rel="stylesheet" />
+  <link href="./prism/prism.css" rel="stylesheet" />
   <link href="./phpFileTree/styles/default/default.css" rel="stylesheet" type="text/css" media="screen" />
 
 
   <!-- Custom styles for this template -->
-  <link href="starter-template.css" rel="stylesheet">
+  <link href="./css/starter-template.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -127,7 +127,7 @@ $view_mode = $_SESSION["view"];
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="./js/vendor/jquery.min.js"><\/script>')</script>
       <script src="./phpFileTree/php_file_tree.js" type="text/javascript"></script>
-      <script src="prism.js"></script>
+      <script src="./prism/prism.js"></script>
       <script src="./js/vendor/popper.min.js"></script>
       <script src="./js/bootstrap.min.js"></script>
     </body>
