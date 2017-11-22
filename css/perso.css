@@ -6,6 +6,10 @@
 .navbar {
     margin-bottom: -10px;
 }
+
+.nav-inside {
+  margin-top: 16px;
+}
 #sidebar-wrapper {
   margin-left: -250px;
   top:56px;
@@ -53,4 +57,30 @@
       transition: all 0.4s ease 0s;
     }
 
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+table th,
+table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #e9ecef;
+}
+
+table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #e9ecef;
+}
+
+table tbody + tbody {
+  border-top: 2px solid #e9ecef;
+}
+
+table table {
+  background-color: #fff;
 }
